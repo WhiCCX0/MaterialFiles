@@ -15,7 +15,7 @@ jobs:
           java-version: 1.8
       - id: get-project
         name: Get project name
-        run: echo "::set-output name=PROJECT::$(cat project-to-build)"
+        run: echo "PROJECT=$(cat project-to-build)" >> $GITHUB_OUTPUT
       - name: Clone project
         run: git clone --depth=1 ${{ steps.get-project.outputs.PROJECT }} project
       - name: Build the app
@@ -27,6 +27,6 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: my-build-apk
+          name: apk
           path: ./**/*.apk
 
